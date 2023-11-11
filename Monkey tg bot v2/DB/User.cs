@@ -13,5 +13,7 @@
         public string Email { get; set; }
 
         public string Age { get; set; }
+
+        public string Permissions { get; set; }
     }
 }

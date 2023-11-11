@@ -45,8 +45,8 @@ namespace Monkey_tg_bot_v2
             {
                 Keyboard = new List<List<KeyboardButton>>
                 {
-                    new List<KeyboardButton> {new KeyboardButton { Text = "Какие есть льготы?"}, new KeyboardButton { Text = "Дресскод" }, new KeyboardButton { Text = "Правила и политика компании" } },
-                    new List<KeyboardButton> {new KeyboardButton { Text = "Карьерный рост"}, new KeyboardButton { Text = "Программное обеспечение" }, new KeyboardButton { Text = "Назад" } }
+                    new List<KeyboardButton> {new KeyboardButton { Text = "Какие есть льготы?"}, new KeyboardButton { Text = "Дресскод" }, new KeyboardButton { Text = "Политика компании" } },
+                    new List<KeyboardButton> {new KeyboardButton { Text = "Поддержка сотрудников"}, new KeyboardButton { Text = "Программное обеспечение" }, new KeyboardButton { Text = "Назад" } }
 
                 }
             };

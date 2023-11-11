@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Monkey_tg_bot_v2.DB;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -33,8 +34,24 @@ public class UserRepository
             context.SaveChanges();
         }
     }
+    public static List<Monkey_tg_bot_v2.DB.User> GetAllUsers()
+    {
+        // Создаем опции подключения
+        var options = new DbContextOptionsBuilder<ApplicationContext>()
+            .UseNpgsql("Host=localhost;Port=5432;Database=usersdb;Username=postgres;Password=1111")
+            .Options;
 
-    
+        // Создаем экземпляр контекста с передачей опций
+        using (var context = new ApplicationContext(options))
+        {
+            return context.Users.ToList();
+        }
+    }
+
+
+
+
+
 
 
 }
