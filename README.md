@@ -1,6 +1,7 @@
 # Telegram-bot-postgresql
 Чат бот для адаптации новых сотрудников на предприятии "Пивоварня Кожевниково"
 
+
 использованные пакеты:
 Microsoft.EntityFrameworkCore.Tools
 
