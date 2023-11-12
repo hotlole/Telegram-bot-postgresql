@@ -8,6 +8,6 @@
         public string PhoneNumber { get; set; }
         public string UserEmail { get; set; }
         public string Age { get; set; }
-        public string Permissons { get; set; }
+        
     }
 }

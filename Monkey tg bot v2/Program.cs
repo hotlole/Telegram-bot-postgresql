@@ -26,8 +26,7 @@ namespace Monkey_tg_bot_v2
             LastName,
             PhoneNumber,
             Email,
-            Age,
-            Permissions
+            Age
         }
 
         private static string token_bot { get; } = "6589506173:AAE3w_g_2QtRvuOpgWas5dG26tcjsw1ncp4";
@@ -92,12 +91,17 @@ namespace Monkey_tg_bot_v2
                         break;
                     case "Список сотрудников":
                         //запрашиваем из базы дынных пользователей
-                        
-                            var users = UserRepository.GetAllUsers();
-                            // Отправьте список сотрудников пользователю
-                            string userList = string.Join("\n", users.Select(u => $"{u.FirstName} {u.LastName} - {u.Permissions}"));
-                            await client.SendTextMessageAsync(msg.Chat.Id, "Список сотрудников:\n" + userList);
-                       
+                        var users = UserRepository.GetAllUsers();
+                        if (users.Any())
+                        {
+                            var userList = users.Select(u => $"{u.Name} {u.FirstName} {u.LastName} - Телефон: {u.PhoneNumber}, Email: {u.Email}, Возраст: {u.Age}");
+                            var usersText = string.Join("\n", userList);
+                            await client.SendTextMessageAsync(msg.Chat.Id, usersText);
+                        }
+                        else
+                        {
+                            await client.SendTextMessageAsync(msg.Chat.Id, "В базе данных нет зарегистрированных пользователей.");
+                        }
                         break;
 
 
@@ -213,15 +217,10 @@ namespace Monkey_tg_bot_v2
                                     userRegistration.Age = msg.Text;
                                     // Добавление пользователя в базу данных
                                     UserRepository.RegisterUser(userRegistration.UserName, userRegistration.FirstName, userRegistration.LastName, userRegistration.PhoneNumber, userRegistration.UserEmail, userRegistration.Age);
-                                    //await client.SendTextMessageAsync(msg.Chat.Id, "Регистрация завершена. Спасибо!");
+                                    await client.SendTextMessageAsync(msg.Chat.Id, "Регистрация завершена. Спасибо!");
                                     registrationState = RegistrationState.None; // Сбрасываем состояние
                                     userRegistration = new UserRegistration(); // Сбрасываем данные пользователя
                                     await client.SendTextMessageAsync(msg.Chat.Id, "В каком подраздлении вы состоите?", replyMarkup: Button.RegistretionButtons());
-                                    break;
-                                case RegistrationState.Permissions:
-                                    userRegistration.Permissons = msg.Text;
-                                    registrationState = RegistrationState.None; // Или другое состояние, в зависимости от вашей логики
-                                    await client.SendTextMessageAsync(msg.Chat.Id, " Напишите ваш возраст:");
                                     break;
                             }
                             break;
